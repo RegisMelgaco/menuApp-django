@@ -46,8 +46,17 @@ class Order(models.Model):
     client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now=True)
     payed = models.BooleanField(default=False)
+    plates = models.ManyToManyField(Plate, through='OrderHasPlate', through_fields=('order', 'plate'))
 
     def __str__(self):
         client_name = self.client.first_name + " " + self.client.last_name
         datetime = self.datetime.__str__()
         return client_name + " - " + datetime
+
+
+class OrderHasPlate(models.Model):
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    plate = models.ForeignKey(Plate, on_delete=models.SET_NULL, null=True)
+    price = models.FloatField()
+    quantity = models.IntegerField()
