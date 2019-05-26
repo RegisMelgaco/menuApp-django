@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Plate, Menu, DaySpecial
+from .models import Plate, Menu, DaySpecial, Order
 
 
 class PlateSerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class MenuSerializer(serializers.ModelSerializer):
 class DaySpecialSerializer(serializers.ModelSerializer):
     class Meta:
         model = DaySpecial
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
         fields = '__all__'

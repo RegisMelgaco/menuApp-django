@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Plate(models.Model):
@@ -38,3 +39,15 @@ class Menu(models.Model):
 
     class Meta:
         ordering = ("name",)
+
+
+class Order(models.Model):
+
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now=True)
+    payed = models.BooleanField(default=False)
+
+    def __str__(self):
+        client_name = self.client.first_name + " " + self.client.last_name
+        datetime = self.datetime.__str__()
+        return client_name + " - " + datetime
