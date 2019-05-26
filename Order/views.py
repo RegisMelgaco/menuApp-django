@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from rest_framework import viewsets, permissions
 
-from .models import Plate, Menu
-from .serializers import PlateSerializer, MenuSerializer
+from .models import Plate, Menu, DaySpecial
+from .serializers import PlateSerializer, MenuSerializer, DaySpecialSerializer
 
 
 class PlateViewSet(viewsets.ModelViewSet):
@@ -14,4 +13,10 @@ class PlateViewSet(viewsets.ModelViewSet):
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
+class DaySpecialViewSet(viewsets.ModelViewSet):
+    queryset = DaySpecial.objects.all()
+    serializer_class = DaySpecialSerializer
     permission_classes = (permissions.IsAuthenticated, )

@@ -15,6 +15,18 @@ class Plate(models.Model):
         ordering = ("name",)
 
 
+class DaySpecial(models.Model):
+
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.date.day) + '/' + str(self.date.month) + '/' + str(self.date.year)
+
+    class Meta:
+        ordering = ("date",)
+
+
 class Menu(models.Model):
 
     name = models.CharField(max_length=50)
