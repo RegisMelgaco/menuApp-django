@@ -47,6 +47,7 @@ class Order(models.Model):
     datetime = models.DateTimeField(auto_now=True)
     payed = models.BooleanField(default=False)
     plates = models.ManyToManyField(Plate, through='OrderHasPlate', through_fields=('order', 'plate'))
+    ready = models.BooleanField(default=False)
 
     def __str__(self):
         client_name = self.client.first_name + " " + self.client.last_name
