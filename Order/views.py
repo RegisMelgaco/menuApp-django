@@ -1,7 +1,9 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics
 
 from .models import Plate, Menu, DaySpecial, Order
-from .serializers import PlateSerializer, MenuSerializer, DaySpecialSerializer, OrderSerializer
+from django.contrib.auth.models import User
+
+from .serializers import PlateSerializer, MenuSerializer, DaySpecialSerializer, OrderSerializer, UserSerializer
 
 
 class PlateViewSet(viewsets.ModelViewSet):
@@ -25,4 +27,10 @@ class DaySpecialViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated, )

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import Plate, Menu, DaySpecial, Order, OrderHasPlate
+from django.contrib.auth.models import User
 
 
 class PlateSerializer(serializers.ModelSerializer):
@@ -35,3 +36,9 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         exclude = ('plates',)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
