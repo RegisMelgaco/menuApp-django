@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>
+            {% block page_title %}
+                Menu App
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+            
+        <nav>
+            <div class="nav-wrapper">
+                <div class="container">
+                    <a href="#!" class="brand-logo">Menu App</a>
+                    <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Cardápio</a></li>
+                        <li><a href="#">Pedidos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+        <ul class="sidenav" id="mobile">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Cardápio</a></li>
+            <li><a href="#">Pedidos</a></li>
+        </ul>
+    
+        <div class="container">
+
+            {% block content %}{% endblock %}
+            
+        </div>
+        
+        <!--JavaScript at end of body for optimized loading-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const elems = document.querySelectorAll('.sidenav');
+                M.Sidenav.init(elems);
+            });
+        </script>
+    </body>
+</html>
+      
