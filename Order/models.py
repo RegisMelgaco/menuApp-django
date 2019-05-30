@@ -1,16 +1,20 @@
 from django.db import models
 from django.conf import settings
-
+from datetime import datetime
 
 class Plate(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.TextField()
     price = models.FloatField()
-    cost = models.FloatField()
+    image = models.ImageField(upload_to="uploads/plates/", null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def actual_cost(self):
+        qs = self.platecost_set.exclude(end_period=datetime.now())
+        return qs[0]
 
     class Meta:
         ordering = ("name",)
@@ -26,6 +30,17 @@ class DaySpecial(models.Model):
 
     class Meta:
         ordering = ("date",)
+
+
+class PlateCost(models.Model):
+
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
+    cost = models.FloatField()
+    since = models.DateTimeField(auto_now=True)
+    end_period = models.DateTimeField(null=True, blank=True, default=None)
+
+    def __str__(self):
+        return self.plate.name + " = " + str(self.cost)
 
 
 class Menu(models.Model):

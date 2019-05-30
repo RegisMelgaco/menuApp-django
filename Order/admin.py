@@ -1,10 +1,15 @@
 from django.contrib import admin
 
-from .models import Plate, Menu, DaySpecial, Order, OrderHasPlate
+from .models import Plate, PlateCost, Menu, DaySpecial, Order, OrderHasPlate
 
 
 @admin.register(Plate)
 class PlateAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(PlateCost)
+class PlateCostAdmin(admin.ModelAdmin):
     pass
 
 
