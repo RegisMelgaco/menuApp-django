@@ -1,5 +1,9 @@
 from rest_framework import viewsets, permissions, generics
 
+from django import views
+from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Plate, Menu, DaySpecial, Order
 from django.contrib.auth.models import User
 
