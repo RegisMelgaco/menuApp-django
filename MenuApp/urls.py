@@ -18,12 +18,17 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rest-auth/', include('rest_auth.urls')),
-    path('api/', include('Order.urls'))
+    path('api/', include('Order.api_urls')),
+    path('administracao/', include('Order.urls')),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
 
 if settings.DEBUG is True:
