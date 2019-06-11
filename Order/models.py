@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from datetime import datetime
 
+from functools import reduce
+
 class Plate(models.Model):
 
     name = models.CharField(max_length=50)
@@ -64,6 +66,9 @@ class Order(models.Model):
     plates = models.ManyToManyField(Plate, through='OrderHasPlate', through_fields=('order', 'plate'))
     ready = models.BooleanField(default=False)
 
+    def total_price(self):
+        return reduce(lambda acc, order_has_plate: acc + order_has_plate.price * order_has_plate.quantity, self.orderhasplate_set.all(), 0)
+
     def __str__(self):
         client_name = self.client.first_name + " " + self.client.last_name
         datetime = self.datetime.__str__()
@@ -76,3 +81,11 @@ class OrderHasPlate(models.Model):
     plate = models.ForeignKey(Plate, on_delete=models.SET_NULL, null=True)
     price = models.FloatField()
     quantity = models.IntegerField()
+
+
+class Dashboard():
+    
+    @staticmethod
+    def revenue(from_date, to_date):
+        orders = Order.objects.filter(datetime__range=(from_date, to_date))
+        return reduce(lambda acc, order: acc + order.total_price(), orders, 0)
