@@ -20,7 +20,7 @@ Sistema MenuApp
 ### Configure o virtual enviroment
   Entre na pasta do repositório e execute comando abaixo no terminal. Este comando irá criar um ambiente virtual python com nome env na diretorio onde for executado o comando
   ```
-  virtualenv .venv .
+  virtualenv .venv
   ```
   
   Em seguida execute o comando abaixo. Este irá inicializar o ambiente virtual no terminal que o comando for executado.
